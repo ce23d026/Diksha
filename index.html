@@ -1,46 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>For Diksha 💖</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
       background: url('https://raw.githubusercontent.com/ce23d026/Diksha/main/523b32df-6465-4c41-85ed-30578da72f2a.png') no-repeat center center;
       background-size: cover;
+      overflow: hidden;
       text-align: center;
-      color: white;
     }
     .overlay {
-      background-color: rgba(0,0,0,0.5);
+      background-color: rgba(0,0,0,0.6);
       min-height: 100vh;
       padding-top: 80px;
+      color: white;
     }
     h1 {
-      font-size: 2em;
+      font-size: 2.2em;
       color: #ffb3c6;
+      animation: fadeIn 2s ease-in;
     }
     button {
       margin-top: 40px;
       background-color: #ff69b4;
       border: none;
       padding: 15px 30px;
-      font-size: 1.2em;
+      font-size: 1.3em;
       border-radius: 12px;
       color: white;
       cursor: pointer;
+      animation: glow 2s infinite alternate;
+    }
+    @keyframes glow {
+      from { box-shadow: 0 0 5px #ff69b4; }
+      to { box-shadow: 0 0 25px #ff69b4; }
+    }
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    .heart {
+      position: absolute;
+      top: -50px;
+      font-size: 2em;
+      animation: fall 4s infinite;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
     }
   </style>
 </head>
 <body>
   <div class="overlay">
     <h1>Honey! You’re the reason<br>my world is so beautiful 💖</h1>
-    <button onclick="alert('Will you marry me again and again? 💍')">Click Me</button>
+    <button onclick="confessLove()">Click Me</button>
     <audio autoplay loop>
       <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
     </audio>
   </div>
+
+  <script>
+    function confessLove() {
+      const messages = [
+        "Will you marry me again and again? 💍",
+        "You're the reason I smile every day 😊",
+        "You're my today and all of my tomorrows 💘",
+        "If I had to choose again, I'd still choose you 💑"
+      ];
+      const msg = messages[Math.floor(Math.random() * messages.length)];
+      alert(msg);
+    }
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = "💗";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 2 + Math.random() * 3 + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(createHeart, 300);
+  </script>
 </body>
 </html>
