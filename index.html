@@ -16,7 +16,7 @@
     .overlay {
       background-color: rgba(0,0,0,0.5);
       min-height: 100vh;
-      padding-top: 100px;
+      padding-top: 60px;
       color: white;
     }
     h1 {
@@ -24,12 +24,18 @@
       color: #ffd6e0;
       animation: fadeIn 2s ease-in;
     }
+    .timer {
+      font-size: 1.5em;
+      margin-top: 20px;
+      color: #ffcccc;
+      letter-spacing: 1px;
+    }
     button {
       margin: 20px;
       background-color: #ff69b4;
       border: none;
       padding: 15px 30px;
-      font-size: 1.3em;
+      font-size: 1.2em;
       border-radius: 12px;
       color: white;
       cursor: pointer;
@@ -63,13 +69,35 @@
 <body>
   <div class="overlay">
     <h1>Honey! You’re the reason<br>my world is so beautiful 💖</h1>
+    
+    <div class="timer" id="countdown">
+      ⏳ Countdown to our wedding day...
+    </div>
+
     <button onclick="confessLove()">Click Me</button>
+
+    <!-- Custom romantic music -->
     <audio autoplay loop>
-      <source src="https://github.com/ce23d026/Diksha/blob/main/audio.mp3" type="audio/mp3">
+      <source src="https://raw.githubusercontent.com/ce23d026/Diksha/main/audio.mp3" type="audio/mp3">
       Your browser does not support the audio element.
     </audio>
   </div>
 
+  <!-- 💗 Heart animation script -->
+  <script>
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = "💗";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 2 + Math.random() * 3 + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(createHeart, 300);
+  </script>
+
+  <!-- 💬 Message popup script -->
   <script>
     function confessLove() {
       const messages = [
@@ -81,18 +109,32 @@
       const msg = messages[Math.floor(Math.random() * messages.length)];
       alert(msg);
     }
+  </script>
 
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerText = "💗";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = 2 + Math.random() * 3 + "s";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 5000);
+  <!-- 🕰️ Countdown Timer script -->
+  <script>
+    const countdown = document.getElementById("countdown");
+    const targetDate = new Date("2025-11-22T00:00:00").getTime();
+
+    function updateTimer() {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        countdown.innerHTML = "🎉 It's our wedding day! 💍";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      const milliseconds = diff % 1000;
+
+      countdown.innerHTML = `⏳ ${days}d ${hours}h ${minutes}m ${seconds}s ${milliseconds}ms`;
     }
 
-    setInterval(createHeart, 300);
+    setInterval(updateTimer, 50);
   </script>
 </body>
 </html>
