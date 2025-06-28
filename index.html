@@ -86,6 +86,12 @@
     audio {
       display: none;
     }
+    #geoLove {
+      margin-top: 30px;
+      font-size: 1.2em;
+      color: #ffccdd;
+      animation: fadeIn 2s ease-in-out;
+    }
   </style>
 </head>
 <body>
@@ -101,17 +107,22 @@
       <div id="count-box">Loading...</div>
     </div>
 
+    <!-- ❤️ GEO-LOCATOR -->
+    <div id="geoLove">
+      📍 <span id="location">Finding you...</span><br/>
+      <span style="font-style: italic;">Wherever you are, I’ll find you ❤️</span>
+    </div>
+
     <button onclick="confessLove()">Click Me</button>
     <button onclick="playMusic()">Play Music 🎵</button>
 
-    <!-- 🎵 Your Custom Audio File -->
+    <!-- 🎵 Custom Audio File -->
     <audio id="bgMusic" loop>
       <source src="https://raw.githubusercontent.com/ce23d026/Diksha/main/audio.mp3" type="audio/mp3">
-      Your browser does not support the audio element.
     </audio>
   </div>
 
-  <!-- 💗 Floating Hearts Script -->
+  <!-- 💗 Floating Hearts -->
   <script>
     function createHeart() {
       const heart = document.createElement("div");
@@ -125,7 +136,7 @@
     setInterval(createHeart, 300);
   </script>
 
-  <!-- 💬 Random Love Message -->
+  <!-- 💬 Love Messages -->
   <script>
     function confessLove() {
       const messages = [
@@ -139,21 +150,17 @@
     }
   </script>
 
-  <!-- 🎵 Music Playback Script -->
+  <!-- 🎵 Music Playback -->
   <script>
     function playMusic() {
       const audio = document.getElementById("bgMusic");
       audio.play()
-        .then(() => {
-          alert("🎵 Music is now playing!");
-        })
-        .catch(() => {
-          alert("Tap again to allow music playback on your phone.");
-        });
+        .then(() => alert("🎵 Music is now playing!"))
+        .catch(() => alert("Tap again to allow music playback on your phone."));
     }
   </script>
 
-  <!-- 🕰️ Countdown Timer Script with Full Labels -->
+  <!-- 🕰️ Countdown Timer -->
   <script>
     const countBox = document.getElementById("count-box");
     const targetDate = new Date("2025-11-24T00:00:00").getTime();
@@ -164,8 +171,6 @@
 
       if (diff <= 0) {
         countBox.innerHTML = `<span style="font-size: 2em; color: #ffccdd;">🎉 It's our wedding day! 💍</span>`;
-        document.body.style.backgroundColor = "#000000";
-        document.body.style.transition = "background-color 2s ease-in";
         return;
       }
 
@@ -183,6 +188,28 @@
     }
 
     setInterval(updateTimer, 1000);
+  </script>
+
+  <!-- 📍 GEOLOCATION Script -->
+  <script>
+    function getLocation() {
+      const locationSpan = document.getElementById("location");
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const lat = position.coords.latitude.toFixed(3);
+            const lon = position.coords.longitude.toFixed(3);
+            locationSpan.innerHTML = `You're here: ${lat}°, ${lon}°`;
+          },
+          () => {
+            locationSpan.innerHTML = "I couldn't find you 😢";
+          }
+        );
+      } else {
+        locationSpan.innerHTML = "Geolocation not supported.";
+      }
+    }
+    window.onload = getLocation;
   </script>
 </body>
 </html>
