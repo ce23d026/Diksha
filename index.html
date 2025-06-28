@@ -31,7 +31,7 @@
       letter-spacing: 1px;
     }
     button {
-      margin: 20px;
+      margin: 10px;
       background-color: #ff69b4;
       border: none;
       padding: 15px 30px;
@@ -69,22 +69,22 @@
 <body>
   <div class="overlay">
     <h1>Honey! You’re the reason<br>my world is so beautiful 💖</h1>
-    
+
     <div class="timer" id="countdown">
       ⏳ Countdown to our wedding day...
     </div>
 
     <button onclick="confessLove()">Click Me</button>
+    <button onclick="playMusic()">Play Music 🎵</button>
 
-    <!-- Custom romantic music -->
-    <audio autoplay loop>
-      <source src="<source src="https://raw.githubusercontent.com/ce23d026/Diksha/main/audio.mp3" type="audio/mp3">
-" type="audio/mp3">
+    <!-- 🎵 Your Custom Audio File -->
+    <audio id="bgMusic" loop>
+      <source src="https://raw.githubusercontent.com/ce23d026/Diksha/main/audio.mp3" type="audio/mp3">
       Your browser does not support the audio element.
     </audio>
   </div>
 
-  <!-- 💗 Heart animation script -->
+  <!-- 💗 Floating Hearts Script -->
   <script>
     function createHeart() {
       const heart = document.createElement("div");
@@ -98,7 +98,7 @@
     setInterval(createHeart, 300);
   </script>
 
-  <!-- 💬 Message popup script -->
+  <!-- 💬 Random Love Message -->
   <script>
     function confessLove() {
       const messages = [
@@ -112,7 +112,21 @@
     }
   </script>
 
-  <!-- 🕰️ Countdown Timer script -->
+  <!-- 🎵 Music Playback Script -->
+  <script>
+    function playMusic() {
+      const audio = document.getElementById("bgMusic");
+      audio.play()
+        .then(() => {
+          alert("🎵 Music is now playing!");
+        })
+        .catch(() => {
+          alert("Tap again to allow music playback on your phone.");
+        });
+    }
+  </script>
+
+  <!-- 🕰️ Countdown Timer Script -->
   <script>
     const countdown = document.getElementById("countdown");
     const targetDate = new Date("2025-11-22T00:00:00").getTime();
