@@ -24,11 +24,33 @@
       color: #ffd6e0;
       animation: fadeIn 2s ease-in;
     }
+    .wedding-date {
+      font-size: 1.3em;
+      color: #ffccdd;
+      margin-top: 10px;
+    }
     .timer {
       font-size: 1.5em;
       margin-top: 20px;
       color: #ffcccc;
       letter-spacing: 1px;
+    }
+    #count-box {
+      font-size: 2em;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .count-unit {
+      display: inline-block;
+      margin: 0 5px;
+      color: #ffffff;
+      animation: pulse 1.5s infinite;
+      text-shadow: 0 0 5px #ff66cc;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.9; }
+      100% { transform: scale(1); opacity: 1; }
     }
     button {
       margin: 10px;
@@ -70,8 +92,13 @@
   <div class="overlay">
     <h1>Honey! You’re the reason<br>my world is so beautiful 💖</h1>
 
-    <div class="timer" id="countdown">
-      ⏳ Countdown to our wedding day...
+    <p class="wedding-date">
+      💒 Wedding Date: <strong>24 November 2025</strong>
+    </p>
+
+    <div class="timer">
+      <div style="font-size: 1.2em; margin-bottom: 10px;">⏳ Countdown to Our Wedding</div>
+      <div id="count-box">Loading...</div>
     </div>
 
     <button onclick="confessLove()">Click Me</button>
@@ -126,17 +153,19 @@
     }
   </script>
 
-  <!-- 🕰️ Countdown Timer Script -->
+  <!-- 🕰️ Interactive Countdown Timer -->
   <script>
-    const countdown = document.getElementById("countdown");
-    const targetDate = new Date("2025-11-22T00:00:00").getTime();
+    const countBox = document.getElementById("count-box");
+    const targetDate = new Date("2025-11-24T00:00:00").getTime();
 
     function updateTimer() {
       const now = new Date().getTime();
       const diff = targetDate - now;
 
       if (diff <= 0) {
-        countdown.innerHTML = "🎉 It's our wedding day! 💍";
+        countBox.innerHTML = `<span style="font-size: 2em; color: #ffccdd;">🎉 It's our wedding day! 💍</span>`;
+        document.body.style.backgroundColor = "#000000";
+        document.body.style.transition = "background-color 2s ease-in";
         return;
       }
 
@@ -146,7 +175,13 @@
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
       const milliseconds = diff % 1000;
 
-      countdown.innerHTML = `⏳ ${days}d ${hours}h ${minutes}m ${seconds}s ${milliseconds}ms`;
+      countBox.innerHTML = `
+        <span class="count-unit">${days}d</span>
+        <span class="count-unit">${hours}h</span>
+        <span class="count-unit">${minutes}m</span>
+        <span class="count-unit">${seconds}s</span>
+        <span class="count-unit">${milliseconds}ms</span>
+      `;
     }
 
     setInterval(updateTimer, 50);
