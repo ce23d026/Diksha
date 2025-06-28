@@ -8,14 +8,13 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-     background: url(https://github.com/ce23d026/Diksha/blob/main/1D2A2446.jpg) no-repeat center center;
-
+      background: url('https://raw.githubusercontent.com/ce23d026/Diksha/main/1D2A2446.jpg') no-repeat center center;
       background-size: cover;
       overflow: hidden;
       text-align: center;
     }
     .overlay {
-      background-color: rgba(0,0,0,0.4);
+      background-color: rgba(0,0,0,0.5);
       min-height: 100vh;
       padding-top: 100px;
       color: white;
@@ -26,8 +25,8 @@
       animation: fadeIn 2s ease-in;
     }
     button {
-      margin-top: 40px;
-      background-color: #c66;
+      margin: 20px;
+      background-color: #ff69b4;
       border: none;
       padding: 15px 30px;
       font-size: 1.3em;
@@ -56,6 +55,9 @@
       from {opacity: 0;}
       to {opacity: 1;}
     }
+    audio {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -64,6 +66,7 @@
     <button onclick="confessLove()">Click Me</button>
     <audio autoplay loop>
       <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
+      Your browser does not support the audio element.
     </audio>
   </div>
 
@@ -88,6 +91,7 @@
       document.body.appendChild(heart);
       setTimeout(() => heart.remove(), 5000);
     }
+
     setInterval(createHeart, 300);
   </script>
 </body>
