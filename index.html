@@ -42,7 +42,7 @@
     }
     .count-unit {
       display: inline-block;
-      margin: 0 5px;
+      margin: 0 10px;
       color: #ffffff;
       animation: pulse 1.5s infinite;
       text-shadow: 0 0 5px #ff66cc;
@@ -153,7 +153,7 @@
     }
   </script>
 
-  <!-- 🕰️ Countdown Timer (Days, Hours, Minutes, Seconds only) -->
+  <!-- 🕰️ Countdown Timer Script with Full Labels -->
   <script>
     const countBox = document.getElementById("count-box");
     const targetDate = new Date("2025-11-24T00:00:00").getTime();
@@ -175,10 +175,10 @@
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
       countBox.innerHTML = `
-        <span class="count-unit">${days}d</span>
-        <span class="count-unit">${hours}h</span>
-        <span class="count-unit">${minutes}m</span>
-        <span class="count-unit">${seconds}s</span>
+        <span class="count-unit">${days} Days</span>
+        <span class="count-unit">${hours} Hours</span>
+        <span class="count-unit">${minutes} Minutes</span>
+        <span class="count-unit">${seconds} Seconds</span>
       `;
     }
 
