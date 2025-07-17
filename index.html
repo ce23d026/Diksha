@@ -10,48 +10,36 @@
       font-family: 'Segoe UI', sans-serif;
       background-color: #222;
       color: white;
-      overflow-x: hidden;
       text-align: center;
     }
     h1 {
       font-size: 2.2em;
       color: #ffd6e0;
-      animation: fadeIn 2s ease-in;
-    }
-    .live-reactions {
       margin-top: 30px;
-      display: flex;
-      flex-direction: column-reverse;
-      align-items: center;
-      max-height: 80vh;
-      overflow-y: auto;
     }
     .reaction {
-      background-color: rgba(255,105,180,0.9);
+      background-color: rgba(255, 105, 180, 0.9);
       color: #fff;
       padding: 10px;
-      margin: 5px 0;
+      margin: 10px auto;
       border-radius: 8px;
-      animation: floatUp 5s ease-in forwards;
-      opacity: 0;
+      max-width: 500px;
+      animation: fadeIn 1s ease-in-out;
     }
-    @keyframes floatUp {
-      0% { transform: translateY(100px); opacity: 0; }
-      50% { opacity: 1; }
-      100% { transform: translateY(-200px); opacity: 0; }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
     }
   </style>
 </head>
 <body>
   <h1>Honey! You’re the reason<br>my world is so beautiful 💖</h1>
-  <p class="wedding-date">🛍 Wedding Date: <strong>24 November 2025</strong></p>
-
-  <div class="live-reactions" id="liveReactions"></div>
+  <p>🛍 Wedding Date: <strong>24 November 2025</strong></p>
+  <div id="reactionBox"></div>
 
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
 
   <script>
     const firebaseConfig = {
@@ -67,10 +55,10 @@
 
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
-    const reactions = document.getElementById("liveReactions");
-    let wishList = [];
+    const box = document.getElementById("reactionBox");
+    let storedMessages = [];
 
-    function displayWish(data) {
+    function displayMessage(data) {
       const div = document.createElement("div");
       div.className = "reaction";
       let html = `<strong>${data.name}</strong>: ${data.message}`;
@@ -84,36 +72,24 @@
         else html += `<br><a href="${data.mediaUrl}" target="_blank">View Attachment</a>`;
       }
       div.innerHTML = html;
-      reactions.appendChild(div);
+      box.appendChild(div);
     }
 
-    function startWishLoop() {
-      if (wishList.length === 0) return;
-      let i = 0;
-      setInterval(() => {
-        displayWish(wishList[i]);
-        i = (i + 1) % wishList.length;
-      }, 5000); // Change every 5 seconds
+    function loopMessages() {
+      box.innerHTML = "";
+      if (storedMessages.length === 0) return;
+
+      const randomMsg = storedMessages[Math.floor(Math.random() * storedMessages.length)];
+      displayMessage(randomMsg);
     }
 
-    // Load existing wishes
     db.ref("wishes").once("value").then((snapshot) => {
+      storedMessages = [];
       snapshot.forEach((child) => {
-        wishList.push(child.val());
+        storedMessages.push(child.val());
       });
-      // Shuffle the initial list randomly
-      wishList = wishList.sort(() => 0.5 - Math.random());
-      startWishLoop();
-    });
-
-    // Handle new incoming wishes
-    db.ref("wishes").on("child_added", (snapshot) => {
-      const newWish = snapshot.val();
-      // If not already added (avoid duplicates)
-      if (!wishList.some(w => w.timestamp === newWish.timestamp)) {
-        wishList.push(newWish);
-        displayWish(newWish);
-      }
+      loopMessages(); // show first one
+      setInterval(loopMessages, 7000); // show one message every 7 sec
     });
   </script>
 </body>
