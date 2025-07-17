@@ -44,9 +44,7 @@
 </head>
 <body>
   <h1>Honey! You’re the reason<br>my world is so beautiful 💖</h1>
-  <p class="wedding-date">
-    🛍 Wedding Date: <strong>24 November 2025</strong>
-  </p>
+  <p class="wedding-date">🛍 Wedding Date: <strong>24 November 2025</strong></p>
 
   <div class="live-reactions" id="liveReactions"></div>
 
@@ -69,37 +67,54 @@
 
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
-
     const reactions = document.getElementById("liveReactions");
+    let wishList = [];
 
-  db.ref("wishes").once("value").then((snapshot) => {
-  const wishes = [];
-  snapshot.forEach((child) => {
-    wishes.push(child.val());
-  });
-
-  // Sort by timestamp (latest at bottom)
-  wishes.sort((a, b) => a.timestamp - b.timestamp);
-
-  wishes.forEach((data) => {
-    const div = document.createElement("div");
-    div.className = "reaction";
-    let html = `<strong>${data.name}</strong>: ${data.message}`;
-    if (data.mediaUrl) {
-      const isImg = data.mediaUrl.match(/\.(jpeg|jpg|gif|png)/);
-      const isAudio = data.mediaUrl.match(/\.(mp3|wav)/);
-      const isVideo = data.mediaUrl.match(/\.(mp4|webm)/);
-
-      if (isImg) html += `<br><img src="${data.mediaUrl}" style="max-width:150px; border-radius:6px;">`;
-      else if (isAudio) html += `<br><audio controls src="${data.mediaUrl}"></audio>`;
-      else if (isVideo) html += `<br><video controls width="150"><source src="${data.mediaUrl}"></video>`;
-      else html += `<br><a href="${data.mediaUrl}" target="_blank">View Attachment</a>`;
+    function displayWish(data) {
+      const div = document.createElement("div");
+      div.className = "reaction";
+      let html = `<strong>${data.name}</strong>: ${data.message}`;
+      if (data.mediaUrl) {
+        const isImg = data.mediaUrl.match(/\.(jpeg|jpg|gif|png)/);
+        const isAudio = data.mediaUrl.match(/\.(mp3|wav)/);
+        const isVideo = data.mediaUrl.match(/\.(mp4|webm)/);
+        if (isImg) html += `<br><img src="${data.mediaUrl}" style="max-width:150px; border-radius:6px;">`;
+        else if (isAudio) html += `<br><audio controls src="${data.mediaUrl}"></audio>`;
+        else if (isVideo) html += `<br><video controls width="150"><source src="${data.mediaUrl}"></video>`;
+        else html += `<br><a href="${data.mediaUrl}" target="_blank">View Attachment</a>`;
+      }
+      div.innerHTML = html;
+      reactions.appendChild(div);
     }
-    div.innerHTML = html;
-    reactions.appendChild(div);
-  });
-});
 
+    function startWishLoop() {
+      if (wishList.length === 0) return;
+      let i = 0;
+      setInterval(() => {
+        displayWish(wishList[i]);
+        i = (i + 1) % wishList.length;
+      }, 5000); // Change every 5 seconds
+    }
+
+    // Load existing wishes
+    db.ref("wishes").once("value").then((snapshot) => {
+      snapshot.forEach((child) => {
+        wishList.push(child.val());
+      });
+      // Shuffle the initial list randomly
+      wishList = wishList.sort(() => 0.5 - Math.random());
+      startWishLoop();
+    });
+
+    // Handle new incoming wishes
+    db.ref("wishes").on("child_added", (snapshot) => {
+      const newWish = snapshot.val();
+      // If not already added (avoid duplicates)
+      if (!wishList.some(w => w.timestamp === newWish.timestamp)) {
+        wishList.push(newWish);
+        displayWish(newWish);
+      }
+    });
   </script>
 </body>
 </html>
