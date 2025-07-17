@@ -4,56 +4,23 @@
   <meta charset="UTF-8" />
   <title>For Diksha 💖</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta charset="UTF-8">
-  <title>Wedding Wall</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body {
-margin: 0;
-font-family: 'Segoe UI', sans-serif;
-background-color: #222;
-      overflow: hidden;
-      text-align: center;
-    }
-    .overlay {
-      background-color: rgba(0,0,0,0.5);
-      min-height: 100vh;
-      padding-top: 60px;
-color: white;
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #222;
       overflow-x: hidden;
+      text-align: center;
+      color: white;
     }
     .container {
       text-align: center;
       padding: 40px 20px;
-}
-h1 {
+    }
+    h1 {
       font-size: 2.2em;
-color: #ffd6e0;
+      color: #ffd6e0;
       animation: fadeIn 2s ease-in;
-    }
-    .wedding-date {
-      font-size: 1.3em;
-      color: #ffccdd;
-      margin-top: 10px;
-    }
-    .timer {
-      font-size: 1.5em;
-      margin-top: 20px;
-      color: #ffcccc;
-      letter-spacing: 1px;
-    }
-    #count-box {
-      font-size: 2em;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-    .count-unit {
-      display: inline-block;
-      margin: 0 10px;
-      color: #ffffff;
-      animation: pulse 1.5s infinite;
-      text-shadow: 0 0 5px #ff66cc;
-      margin-bottom: 20px;
     }
     form {
       background-color: #333;
@@ -68,68 +35,26 @@ color: #ffd6e0;
       padding: 10px;
       border: none;
       border-radius: 5px;
-}
-    @keyframes pulse {
-      0% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.1); opacity: 0.9; }
-      100% { transform: scale(1); opacity: 1; }
+    }
     input[type="file"] {
       background-color: #444;
       color: white;
-}
-button {
+    }
+    button {
       margin: 10px;
-background-color: #ff69b4;
+      background-color: #ff69b4;
       border: none;
       padding: 15px 30px;
       font-size: 1.2em;
       border-radius: 12px;
-color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 8px;
-      font-size: 1em;
-cursor: pointer;
+      color: white;
+      cursor: pointer;
       animation: glow 2s infinite alternate;
     }
     @keyframes glow {
       from { box-shadow: 0 0 5px #ff69b4; }
       to { box-shadow: 0 0 25px #ff69b4; }
     }
-    .heart {
-      position: absolute;
-      top: -50px;
-      font-size: 2em;
-      animation: fall 4s infinite;
-    }
-    @keyframes fall {
-      to {
-        transform: translateY(100vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
-    audio {
-      display: none;
-    }
-    #geoLove {
-      margin-top: 30px;
-      font-size: 1.2em;
-      color: #ffccdd;
-      animation: fadeIn 2s ease-in-out;
-      margin-top: 10px;
-}
-    iframe {
-      border-radius: 12px;
-      width: 90%;
-      max-width: 600px;
-      height: 450px;
-      margin: 30px auto;
-      display: block;
-      background: white;
     .live-reactions {
       position: fixed;
       bottom: 20px;
@@ -153,42 +78,15 @@ cursor: pointer;
       0% { transform: translateY(100px); opacity: 0; }
       50% { opacity: 1; }
       100% { transform: translateY(-200px); opacity: 0; }
-}
-</style>
+    }
+  </style>
 </head>
 <body>
-  <div class="overlay">
-    <h1>Honey! You’re the reason<br>my world is so beautiful 💖</h1>
+  <h1>Honey! You’re the reason<br>my world is so beautiful 💖</h1>
 
-    <p class="wedding-date">
-      🛍 Wedding Date: <strong>24 November 2025</strong>
-    </p>
-
-    <div class="timer">
-      <div style="font-size: 1.2em; margin-bottom: 10px;">⏳ Countdown to Our Wedding</div>
-      <div id="count-box">Loading...</div>
-    </div>
-
-    <div id="geoLove">
-      📍 <span id="location">Finding you...</span><br/>
-      <span style="font-style: italic;">Wherever you are, I’ll find you ❤️</span>
-    </div>
-
-    <button onclick="confessLove()">Click Me</button>
-    <button onclick="playMusic()">Play Music 🎵</button>
-
-    <audio id="bgMusic" loop>
-      <source src="https://raw.githubusercontent.com/ce23d026/Diksha/main/audio.mp3" type="audio/mp3">
-    </audio>
-
-    <!-- 💌 Guest Wishes Form (Embedded) -->
-    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeExampleGuestWishesForm/viewform?embedded=true" allowfullscreen></iframe>
-
-    <!-- 📸 Photo Gallery -->
-    <iframe src="https://photos.app.goo.gl/examplegallery" allowfullscreen></iframe>
-
-    <!-- 📊 Fun Voting Poll -->
-    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeExampleVotingForm/viewform?embedded=true" allowfullscreen></iframe>
+  <p class="wedding-date">
+    🛍 Wedding Date: <strong>24 November 2025</strong>
+  </p>
 
   <div class="container">
     <h1>Leave Your Wishes 💌</h1>
@@ -198,117 +96,77 @@ cursor: pointer;
       <input type="file" name="media" accept="image/*,video/*,audio/*" capture>
       <button type="submit">Send Wish</button>
     </form>
-</div>
+  </div>
 
-  <!-- 💗 Floating Hearts -->
-  <script>
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerText = "💗";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = 2 + Math.random() * 3 + "s";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 5000);
-    }
-    setInterval(createHeart, 300);
-  </script>
-
-  <!-- 💬 Love Message -->
-  <script>
-    function confessLove() {
-      const messages = [
-        "Will you marry me again and again? 💍",
-        "You're my forever favorite person 💞",
-        "Every love song is about you 🎶",
-        "With you, every moment is magic ✨"
-      ];
-      const msg = messages[Math.floor(Math.random() * messages.length)];
-      alert(msg);
-    }
-  </script>
-
-  <!-- 🎵 Music Control -->
-  <script>
-    function playMusic() {
-      const audio = document.getElementById("bgMusic");
-      audio.play()
-        .then(() => alert("🎵 Music is now playing!"))
-        .catch(() => alert("Tap again to allow music playback on your phone."));
-    }
-  </script>
   <div class="live-reactions" id="liveReactions"></div>
 
-  <!-- 🕰️ Countdown Timer -->
-<script>
-    const countBox = document.getElementById("count-box");
-    const targetDate = new Date("2025-11-24T00:00:00").getTime();
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
 
-    function updateTimer() {
-      const now = new Date().getTime();
-      const diff = targetDate - now;
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBxsCIix7yI1HbmcM5iePoHzM0S8-quEG0",
+      authDomain: "wedding-dashboard-3b7f9.firebaseapp.com",
+      projectId: "wedding-dashboard-3b7f9",
+      storageBucket: "wedding-dashboard-3b7f9.appspot.com",
+      messagingSenderId: "208139653830",
+      appId: "1:208139653830:web:d5f846eb8f1d1497797dc7",
+      measurementId: "G-6WND4F2LNQ",
+      databaseURL: "https://wedding-dashboard-3b7f9-default-rtdb.firebaseio.com"
+    };
 
-      if (diff <= 0) {
-        countBox.innerHTML = `<span style="font-size: 2em; color: #ffccdd;">🎉 It's our wedding day! 💍</span>`;
-        return;
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const storage = firebase.storage();
+
+    const form = document.getElementById("wishForm");
+    const reactions = document.getElementById("liveReactions");
+
+    form.addEventListener("submit", async function(event) {
+      event.preventDefault();
+      const name = form.name.value || "Anonymous";
+      const message = form.message.value;
+      const file = form.media.files[0];
+
+      let mediaUrl = "";
+
+      if (file) {
+        const fileRef = storage.ref().child("media/" + Date.now() + "_" + file.name);
+        await fileRef.put(file);
+        mediaUrl = await fileRef.getDownloadURL();
       }
 
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      const newWish = {
+        name: name,
+        message: message,
+        mediaUrl: mediaUrl,
+        timestamp: Date.now()
+      };
 
-      countBox.innerHTML = `
-        <span class="count-unit">${days} Days</span>
-        <span class="count-unit">${hours} Hours</span>
-        <span class="count-unit">${minutes} Minutes</span>
-        <span class="count-unit">${seconds} Seconds</span>
-      `;
-    }
-
-    setInterval(updateTimer, 1000);
-  </script>
-
-  <!-- 🌍 IP-Based Location + Email -->
-  <script>
-    function getLocation() {
-      const locationSpan = document.getElementById("location");
-
-      fetch("https://ipinfo.io/json?token=38d12b234c9c4a")
-        .then((response) => response.json())
-        .then((data) => {
-          const location = `${data.city}, ${data.region}, ${data.country}`;
-          const coords = data.loc.split(',');
-          locationSpan.innerHTML = `You're near: ${location}`;
-          sendLocationToRahul(coords[0], coords[1]);
-        })
-        .catch((error) => {
-          locationSpan.innerHTML = "I couldn't find you 😢";
-        });
-    }
-
-    function sendLocationToRahul(lat, lon) {
-      fetch('https://script.google.com/macros/s/AKfycbyA4IyBUQrWh_lz2uMby6uM4m2nJQUdaf0uvcYasXsRca3B7t71Eok83x8LKYzHXX1b/exec', {
-        method: 'POST',
-        body: JSON.stringify({ latitude: lat, longitude: lon }),
-        headers: { 'Content-Type': 'application/json' }
-      });
-    }
-
-    window.onload = getLocation;
-    document.getElementById("wishForm").addEventListener("submit", function(event) {
-      event.preventDefault();
-      const name = event.target.name.value || "Anonymous";
-      const message = event.target.message.value;
-      const reactionBox = document.getElementById("liveReactions");
-
-      const el = document.createElement("div");
-      el.className = "reaction";
-      el.innerHTML = `<strong>${name}</strong>: ${message}`;
-
-      reactionBox.appendChild(el);
-      event.target.reset();
+      db.ref("wishes").push(newWish);
+      form.reset();
     });
-</script>
+
+    db.ref("wishes").on("child_added", (snapshot) => {
+      const data = snapshot.val();
+      const div = document.createElement("div");
+      div.className = "reaction";
+      let html = `<strong>${data.name}</strong>: ${data.message}`;
+      if (data.mediaUrl) {
+        const isImg = data.mediaUrl.match(/\.(jpeg|jpg|gif|png)/);
+        const isAudio = data.mediaUrl.match(/\.(mp3|wav)/);
+        const isVideo = data.mediaUrl.match(/\.(mp4|webm)/);
+
+        if (isImg) html += `<br><img src="${data.mediaUrl}" style="max-width:150px; border-radius:6px;">`;
+        else if (isAudio) html += `<br><audio controls src="${data.mediaUrl}"></audio>`;
+        else if (isVideo) html += `<br><video controls width="150"><source src="${data.mediaUrl}"></video>`;
+        else html += `<br><a href="${data.mediaUrl}" target="_blank">View Attachment</a>`;
+      }
+      div.innerHTML = html;
+      reactions.appendChild(div);
+    });
+  </script>
 </body>
 </html>
