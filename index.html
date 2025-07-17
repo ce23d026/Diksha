@@ -1,67 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>For Diksha 💖</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <title>Wedding Wall</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
       background-color: #222;
+      color: white;
       overflow-x: hidden;
       text-align: center;
-      color: white;
-    }
-    .container {
-      text-align: center;
-      padding: 40px 20px;
     }
     h1 {
       font-size: 2.2em;
       color: #ffd6e0;
       animation: fadeIn 2s ease-in;
     }
-    form {
-      background-color: #333;
-      padding: 20px;
-      border-radius: 10px;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-    input, textarea {
-      width: 100%;
-      margin: 10px 0;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-    }
-    input[type="file"] {
-      background-color: #444;
-      color: white;
-    }
-    button {
-      margin: 10px;
-      background-color: #ff69b4;
-      border: none;
-      padding: 15px 30px;
-      font-size: 1.2em;
-      border-radius: 12px;
-      color: white;
-      cursor: pointer;
-      animation: glow 2s infinite alternate;
-    }
-    @keyframes glow {
-      from { box-shadow: 0 0 5px #ff69b4; }
-      to { box-shadow: 0 0 25px #ff69b4; }
-    }
     .live-reactions {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
+      margin-top: 30px;
       display: flex;
       flex-direction: column-reverse;
-      align-items: flex-end;
+      align-items: center;
       max-height: 80vh;
       overflow-y: auto;
     }
@@ -83,20 +44,9 @@
 </head>
 <body>
   <h1>Honey! You’re the reason<br>my world is so beautiful 💖</h1>
-
   <p class="wedding-date">
     🛍 Wedding Date: <strong>24 November 2025</strong>
   </p>
-
-  <div class="container">
-    <h1>Leave Your Wishes 💌</h1>
-    <form id="wishForm">
-      <input type="text" name="name" placeholder="Your Name (optional)">
-      <textarea name="message" placeholder="Your Message" required></textarea>
-      <input type="file" name="media" accept="image/*,video/*,audio/*" capture>
-      <button type="submit">Send Wish</button>
-    </form>
-  </div>
 
   <div class="live-reactions" id="liveReactions"></div>
 
@@ -119,35 +69,8 @@
 
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
-    const storage = firebase.storage();
 
-    const form = document.getElementById("wishForm");
     const reactions = document.getElementById("liveReactions");
-
-    form.addEventListener("submit", async function(event) {
-      event.preventDefault();
-      const name = form.name.value || "Anonymous";
-      const message = form.message.value;
-      const file = form.media.files[0];
-
-      let mediaUrl = "";
-
-      if (file) {
-        const fileRef = storage.ref().child("media/" + Date.now() + "_" + file.name);
-        await fileRef.put(file);
-        mediaUrl = await fileRef.getDownloadURL();
-      }
-
-      const newWish = {
-        name: name,
-        message: message,
-        mediaUrl: mediaUrl,
-        timestamp: Date.now()
-      };
-
-      db.ref("wishes").push(newWish);
-      form.reset();
-    });
 
     db.ref("wishes").on("child_added", (snapshot) => {
       const data = snapshot.val();
